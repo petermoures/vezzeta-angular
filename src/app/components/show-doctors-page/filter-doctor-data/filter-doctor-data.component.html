@@ -1,0 +1,143 @@
+<div *ngIf="!IsContainDoctor" style="display: flex;justify-content: center">
+    <p class="pt-5" style="font-size: 40px;color: brown;line-height: 2rem;">
+        there is no doctors that match your search
+    </p>
+
+</div>
+<div class="row" *ngFor="let doctor of DoctorsList;let x=index">
+    <div class="card mb-3 col-12">
+        <div class="row g-0 pb-2">
+            <div class="col-md-3 p-3 d-none d-md-block">
+                <div class="text-center">
+                    <img [src]="createImgPath(doctor.image)" alt="image 1" class="img-fluid DoctorImage">
+
+                </div>
+            </div>
+
+            <div class="col-12 d-block d-md-none mt-3">
+                <div class="row">
+                    <div class="col-4">
+                        <img [src]="createImgPath(doctor.image)" alt="image 1" style="height: auto;" class="img-fluid DoctorImage">
+                    </div>
+                    <div class="col-8" style="display: flex;flex-direction: column;justify-content: center;">
+                        <h4 class="card-title text-primary mb-0">Doctor : {{doctor.user.fullName}}</h4>
+    
+                        <bar-rating [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5">
+                        </bar-rating>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-4  border-primary" (click)="ShowDetails(doctor.userId)" style="cursor: pointer;">
+                <div class="card-body col-12">
+                    <h4 class="card-title text-primary d-none d-md-block">Doctor : {{doctor.user.fullName}}</h4>
+
+                    <bar-rating class=" d-none d-md-block" [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5">
+                    </bar-rating>
+
+                    <div class="card-text d-flex">
+                        <i class="fas fa-stethoscope p-2"></i>
+                        <div>
+                            Doctor in {{doctor.specialty.name}} subspecailize
+                            in
+                            <span *ngFor="let sub of doctor.subspecails" style="color: cadetblue;">{{sub.name}},
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="card-text d-flex  mt-2">
+                        <div>
+                            <i class="fas fa-map-marker-alt p-2"></i>
+                        </div>
+
+                        <div class="pt-1">
+                            {{doctor.clinicCityName}}-{{doctor.clinicAreaName}}-{{doctor.clinic.street}}
+                        </div>
+                    </div>
+                    <div class="card-text d-flex  mt-2">
+                        <i class="fas fa-money-bill-wave p-2"></i>
+                        <div class="pt-1">
+                            Check Price : {{doctor.clinic.fees}} EGP
+                        </div>
+                    </div>
+
+                    <div class="card-text d-flex  mt-2">
+                        <i class="far fa-clock p-2"></i>
+                        <div class="pt-1">
+                            Waiting time : {{doctor.clinic.watingTime}}
+                        </div>
+                    </div>
+
+                    <div class="card-text d-flex mt-2 align-items-center">
+                        <i class="fas fa-phone p-2"></i>
+
+                        <div>
+                            <span style="color: cornflowerblue;">
+                                +{{doctor.user.phoneNumber}}</span> (As ordinary price
+                            for minute)
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-5 p-3 d-none d-md-block">
+                <div id="carouselExampleControls{{x}}" class="carousel slide" data-ride="carousel"
+                    style="display: flex;justify-content: center;" data-interval="false">
+                    <div class="carousel-inner col-12" style="justify-content: center;">
+
+                        <div class="carousel-item p-2" style="justify-content: center;"
+                            *ngFor="let days of doctor.presentDaysWork;let i=index" [class.active]="i==0">
+
+                            <div class="d-flex col-12 px-4" style="justify-content: center;">
+
+                                <div class="col-4 appointmentsDiv" *ngFor="let day of days">
+                                    <button class="btn btn-primary w-100">{{ day.datee |
+                                        date:'MMMM d'}}</button>
+
+                                    <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
+                                        <div *ngFor="let shift of day._dayShift"
+                                            (click)="reserve(shift.id,doctor.user.userName,day.datee)"
+                                            class="mb-2 border clickReserve rounded">
+                                            <small>from : {{shift.from}}</small>
+                                            <br>
+                                            <!-- {{shift.id}}  -->
+                                            <small>to : {{shift.to}}</small>
+                                        </div>
+
+                                    </div>
+                                    <div style="text-align: center;" class="appointment mt-3" *ngIf="!day.IsWork">
+                                        <p>no available appointment</p>
+                                    </div>
+                                    <button class="btn btn-danger w-100" [disabled]="!day.IsWork">احجز</button>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <a class="carousel-control-prev" href="#carouselExampleControls{{x}}" role="button"
+                        data-slide="prev">
+                        <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                        <i class="fas fa-chevron-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls{{x}}" role="button"
+                        data-slide="next">
+                        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

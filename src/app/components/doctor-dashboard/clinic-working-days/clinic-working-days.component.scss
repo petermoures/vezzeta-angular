@@ -1,0 +1,51 @@
+.attachment{
+  background-color: white;
+  border-radius: 1rem;
+  .header-info{
+      background-color:rgb(0, 112, 205);
+      color: white;
+      border-radius: 1rem 1rem 0rem 0rem;
+  }
+}
+label{
+  color: rgb(102, 102, 102);
+}
+.workingDays {
+  input.form-control{
+  width: 20%;
+  display: inline-block;
+  margin: 0 0.5rem;
+  }
+  label{
+    margin:0 0.5rem;
+    &.shift{font-weight: bold; margin-left: 3rem;}
+    &.form-check-label{font-weight: bold;}
+  }
+  input.form-control.numOfReservations{width: 10%;}
+}
+
+
+
+@media (max-width:500px) {
+
+    .shift{
+      margin-left: 0rem !important;
+      display: block;
+    }
+    input[type=time]{
+      width: 50% !important;
+    }
+    input[type=number]{
+      width: 20% !important;
+    }
+    .toLabel{
+      &::before {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+    
+
+  
+  
+}

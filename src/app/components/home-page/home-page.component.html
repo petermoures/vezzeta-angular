@@ -1,0 +1,87 @@
+<app-search-in-home-page></app-search-in-home-page>
+
+<app-suggestion-doctors></app-suggestion-doctors>
+
+<div class="offerSection p-3">
+  <div class="container offerSlider pt-4">
+    <div class="d-flex justify-content-between">
+      <span class="offerSectionTitle">Choose from the best offers</span>
+      <a routerLink="ClientOffer/offers">All Offer</a>
+    </div>
+    <div id="multi-item-exampleOffer" class="carousel slide carousel-multi-item mt-2" data-ride="carousel">
+
+      <div class="controls-top">
+        <a class="carousel-control-prev" href="#multi-item-exampleOffer" data-slide="prev"><i
+            class="fas fa-chevron-left"></i></a>
+        <a class="carousel-control-next" href="#multi-item-exampleOffer" data-slide="next">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </div>
+
+      <div class="carousel-inner" role="listbox">
+
+        <div class="carousel-item px-4" *ngFor="let offerChunk of allOfferWithMakeOfferCount;let i=index"
+          [class.active]="i==0">
+
+          <div class="col-6 col-md-3 px-md-3 px-1 rounded" style="float:left" *ngFor="let item of offerChunk"
+            (click)="goToOfferCategory(item.id)">
+            <div class="mb-2 offerCart">
+              <img class="img-fluid rounded-lg" src="{{url}}/{{item.image}}" alt="Card image cap">
+
+              <div class="p-2">
+                <h4 class="">{{item.name}}</h4>
+                <p class="pl-2">{{item.makeOfferCount}} Offers </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="offerSection p-3" style="background-color: transparent;">
+  <div class="container offerSlider pt-4">
+    <div class="d-flex justify-content-between">
+      <span class="offerSectionTitle">Book from top specialties</span>
+    </div>
+    <div id="multi-item-example2" class="carousel slide carousel-multi-item mt-2" data-ride="carousel">
+
+      <div class="controls-top">
+        <a class="carousel-control-prev" href="#multi-item-example2" data-slide="prev"><i
+            class="fas fa-chevron-left"></i></a>
+        <a class="carousel-control-next" href="#multi-item-example2" data-slide="next">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </div>
+
+      <div class="carousel-inner" role="listbox">
+
+        <div class="carousel-item px-4" *ngFor="let specailtys of SpecailtyList;let i=index"
+          [class.active]="i==0">
+
+          <div class="col-6 col-md-3 px-md-2 px-1 rounded" style="float:left" *ngFor="let specailty of specailtys"
+            (click)="ShowDoctors(specailty.id)">
+            <div class="mb-2 offerCart rounded">
+              <img class="img-fluid" src="{{url}}/{{specailty.image}}" alt="Card image cap">
+
+              <div class="p-2">
+                <h4 class="px-2 specialtName">{{specailty.name}}</h4>              
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<app-extra-information></app-extra-information>
